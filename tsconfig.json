@@ -12,6 +12,7 @@
     "allowSyntheticDefaultImports": true,
     "allowUnreachableCode": true,
     "sourceMap": true,
+    "noEmit": true,
     "baseUrl": ".",
     "types": [
       "webpack-env"
@@ -36,6 +37,8 @@
     "tests/**/*.tsx"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "src/i18n.js",
+    "src/locales/index.js"
   ]
 }

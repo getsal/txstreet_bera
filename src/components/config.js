@@ -979,6 +979,255 @@ export const ARBI = {
 	})
 };
 
+export const BERA = {
+	ticker: "BERA",
+	coinName: "Berachain",
+	coinSlug: "Berachain",
+	initialHouseY: 340,
+	color: "FF8C00",        // Orange/Honey theme
+	busColor: "E5733D",
+	busCapacity: 0,
+	feeVar: "gp",
+	explorerTxUrl: "https://berascan.io/tx/",
+	explorerBlockUrl: "https://berascan.io/block/",
+	explorerBlocksUrl: "https://berascan.io/blocks",
+	explorerAddressUrl: "https://berascan.io/address/",
+	liveTxs: [],
+	liveBlocks: [],
+	houseArray: [],
+	maxBlocksToKeep: 50,
+	addressNonces: {},
+	blockFormat: ETH.blockFormat,
+	calcBlockFeeArray: ETH.calcBlockFeeArray,
+	getFee: ETH.getFee,
+	getAndApplyFee: ETH.getAndApplyFee,
+	socketBlocks: true,
+	userSettings: {
+		blockNotifications: {
+			title: () => {
+				return i18n.t("settings.browser-notifications") + " (" + i18n.tc("general.block", 2) + ")";
+			},
+			type: "checkbox",
+			restart: false,
+			value: false,
+			writable: true,
+		},
+		txNotifications: {
+			title: () => {
+				return i18n.t("settings.browser-notifications") + " (" + i18n.tc("general.transaction", 2) + ")";
+			},
+			type: "checkbox",
+			restart: false,
+			value: true,
+			writable: true,
+		},
+		maxBuses: {
+			title: () => {
+				return i18n.t("settings.max-buses");
+			},
+			type: "range",
+			min: 1,
+			max: 100,
+			restart: false,
+			value: 25,
+			writable: true,
+		},
+		signArray: {
+			title: "Sign Display",
+			type: "multiselect",
+			value: ["lastBlock", "medianFee-usdTransfer", "mempool-size"],
+			writable: true,
+			invisible: true,
+			restart: false,
+		},
+	},
+	stats: Vue.observable({
+		tps: {
+			title: () => {
+				return i18n.t("bera.tps");
+			},
+			decimals: 2,
+			value: false,
+			socket: true,
+			wiki: ["common/stats/tps"],
+		},
+		ctps: {
+			title: () => {
+				return i18n.t("bera.ctps");
+			},
+			decimals: 2,
+			value: false,
+			socket: true,
+			wiki: ["common/stats/ctps"],
+		},
+		baseFee: {
+			title: () => {
+				return i18n.t("bera.baseFee");
+			},
+			signTitle: "Base Fee",
+			value: 0,
+			socket: true,
+			format: val => {
+				return ethUnits(val);
+			},
+			wiki: ["BERA/stats/baseFee"],
+		},
+		"mempool-size": {
+			title: () => {
+				return i18n.t("bera.mempool-size");
+			},
+			signTitle: "Pending Txs",
+			value: 0,
+			decimals: 0,
+			limit: 75000,
+			socket: true,
+			wiki: ["common/stats/mempool-count", "common/mempool"],
+		},
+		"medianFee-usd": {
+			title: () => {
+				return i18n.t("bera.medianFee-usd");
+			},
+			signTitle: "Median Contract Fee",
+			before: "~$",
+			after: " USD",
+			value: false,
+			socket: true,
+			wiki: ["BERA/stats/medianContractFee", "common/transaction-fees"],
+		},
+		"medianFee-usdTransfer": {
+			title: () => {
+				return i18n.t("bera.medianFee-usdTransfer");
+			},
+			signTitle: "Median Transfer Fee",
+			after: " USD",
+			before: "~$",
+			value: false,
+			socket: true,
+			wiki: ["BERA/stats/medianTransferFee", "common/transaction-fees"],
+		},
+		"medianFee-gasPrice": {
+			title: () => {
+				return i18n.t("bera.medianFee-gasPrice");
+			},
+			value: false,
+			socket: true,
+			format: val => {
+				return ethUnits(val);
+			},
+			wiki: ["BERA/stats/medianGasPrice"],
+		},
+		"supply-circulating": {
+			title: () => {
+				return i18n.t("bera.supply-circulating");
+			},
+			decimals: 0,
+			socket: true,
+			value: false,
+		},
+		"fiatPrice-usd": {
+			title: () => {
+				return i18n.t("bera.fiatPrice-usd");
+			},
+			decimals: 2,
+			before: "$",
+			socket: true,
+			value: false,
+		},
+		lastBlock: {
+			title: () => {
+				return i18n.t("bera.lastBlock");
+			},
+			value: false,
+			wiki: ["common/stats/lastBlock", "common/block-time"],
+		},
+		medianTxsPerBlock: {
+			title: () => {
+				return i18n.t("bera.medianTxsPerBlock");
+			},
+			value: 0,
+			decimals: 0,
+			socket: true,
+			wiki: ["common/stats/medianTxsPerBlock"],
+		},
+		gasLimit: {
+			title: () => {
+				return i18n.t("bera.gasLimit");
+			},
+			value: 0,
+			decimals: 0,
+			socket: true,
+			wiki: ["BERA/stats/gasLimit"],
+		},
+		gasTarget: {
+			title: () => {
+				return i18n.t("bera.gasTarget");
+			},
+			value: 0,
+			decimals: 0,
+			socket: true,
+			wiki: ["BERA/stats/gasTarget"],
+		},
+		medianGasUsed: {
+			title: () => {
+				return i18n.t("bera.medianGasUsed");
+			},
+			value: 0,
+			decimals: 0,
+			socket: true,
+			wiki: ["BERA/stats/medianBlockGas"],
+		},
+		medianBlockSize: {
+			title: () => {
+				return i18n.t("bera.medianBlockSize");
+			},
+			value: 0,
+			decimals: 3,
+			divide: 1000000,
+			socket: true,
+			after: " MB",
+			wiki: ["common/stats/medianBlockSize"],
+		},
+		gasUsedDif: {
+			title: () => {
+				return i18n.t("bera.gasUsedDif");
+			},
+			value: 100,
+			decimals: 2,
+			socket: true,
+			after: "%",
+			wiki: ["BERA/stats/gasUsedDif"],
+		},
+		medianBlockTime: {
+			title: () => {
+				return i18n.t("bera.medianBlockTime");
+			},
+			value: 0,
+			timeAgo: true,
+			socket: true,
+			wiki: ["common/stats/medianBlockTime", "common/block-time"],
+		},
+		blockHeight: { hidden: true, value: false },
+		"marketCap-usd": {
+			title: () => {
+				return i18n.t("bera.marketCap-usd");
+			},
+			before: "$",
+			decimals: 0,
+			value: false,
+			socket: true,
+		},
+		"volume-usd": {
+			title: () => {
+				return i18n.t("bera.volume-usd");
+			},
+			before: "$",
+			decimals: 0,
+			value: false,
+			socket: true,
+		},
+	}),
+};
+
 
 export const BCH = {
 	ticker: "BCH",
@@ -1442,7 +1691,8 @@ export const enabledConfig = {
 	BCH,
 	XMR,
 	LTC,
-	ARBI
+	ARBI,
+	BERA
 };
 
 export const additionalSheets = {
