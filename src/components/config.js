@@ -3,6 +3,7 @@ import i18n from "../i18n";
 import median from "./utils/median";
 
 export const ethUnits = (wei, readable = true, round = false) => {
+	if (wei === undefined || wei === null) return "0 Wei";
 	let val = wei;
 	let units = "Wei";
 	if (val > 100000000) {
@@ -917,6 +918,7 @@ export const ARBI = {
 			value: 0,
 			decimals: 0,
 			default: 0,
+			socket: true,
 			wiki: ["common/stats/pendingBatchSize"],
 		},
 		medianTxsPerBlock: {
@@ -986,12 +988,12 @@ export const BERA = {
 	initialHouseY: 340,
 	color: "FF8C00",        // Orange/Honey theme
 	busColor: "E5733D",
-	busCapacity: 0,
+	busCapacity: 30000000,
 	feeVar: "gp",
-	explorerTxUrl: "https://berascan.io/tx/",
-	explorerBlockUrl: "https://berascan.io/block/",
-	explorerBlocksUrl: "https://berascan.io/blocks",
-	explorerAddressUrl: "https://berascan.io/address/",
+	explorerTxUrl: "https://berascan.com/tx/",
+	explorerBlockUrl: "https://berascan.com/block/",
+	explorerBlocksUrl: "https://berascan.com/blocks",
+	explorerAddressUrl: "https://berascan.com/address/",
 	liveTxs: [],
 	liveBlocks: [],
 	houseArray: [],
@@ -1224,6 +1226,20 @@ export const BERA = {
 			decimals: 0,
 			value: false,
 			socket: true,
+		},
+		pendingBatchCount: {
+			title: () => {
+				return "Pending Batch Count";
+			},
+			value: 0,
+			socket: false,
+		},
+		pendingBatchCountLive: {
+			title: () => {
+				return "Pending Batch Count (Live)";
+			},
+			value: 0,
+			socket: false,
 		},
 	}),
 };

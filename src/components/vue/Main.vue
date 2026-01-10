@@ -123,15 +123,19 @@ export default {
 		async getAd(retry = 0) {
 			if (retry > 3) return;
 			let url = process.env.VUE_APP_MOONHEADS_SERVER + "/api/currentAd";
-			let response = await fetch(url);
-			let json = await response.json();
-			if (Array.isArray(json)) {
-				Vue.set(this, "moonHeadAds", json);
-			} else {
-				setTimeout(() => {
-					retry++;
-					this.getAd(retry);
-				}, 5000);
+			try {
+				let response = await fetch(url);
+				let json = await response.json();
+				if (Array.isArray(json)) {
+					Vue.set(this, "moonHeadAds", json);
+				} else {
+					setTimeout(() => {
+						retry++;
+						this.getAd(retry);
+					}, 5000);
+				}
+			} catch (e) {
+				console.log("Failed to fetch ad", e);
 			}
 		},
 		nowInterval() {

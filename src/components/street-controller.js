@@ -6,6 +6,7 @@ import BTCStreet from "./streets/bitcoin.js";
 import BCHStreet from "./streets/bitcoin-cash.js";
 import ETHStreet from "./streets/ethereum.js";
 import ARBIStreet from "./streets/abitrum";
+import BERAStreet from "./streets/berachain";
 import XMRStreet from "./streets/monero.js";
 import LTCStreet from "./streets/litecoin.js";
 import rca from "rainbow-colors-array";
@@ -19,7 +20,8 @@ export const availableStreets = {
 	ETH: ETHStreet,
 	XMR: XMRStreet,
 	LTC: LTCStreet,
-	ARBI: ARBIStreet
+	ARBI: ARBIStreet,
+	BERA: BERAStreet
 };
 
 export const enabledStreets = {};

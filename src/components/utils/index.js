@@ -155,7 +155,9 @@ export const getHouseArray = async config => {
 
 export const calcStatValue = (stat, customValue = false) => {
 	if (!stat) return customValue;
-	let value = customValue || stat.value || stat.default;
+	let value = customValue;
+	if (value === false) value = stat.value;
+	if (value === false || value === undefined) value = stat.default;
 	if (typeof stat.format === "function") return stat.format(value);
 	let after = stat.after;
 	if (!value && value !== 0) return "Loading...";
