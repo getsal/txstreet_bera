@@ -824,7 +824,19 @@ export class Street extends Phaser.Scene {
 
 	fillBusesAndLeave(block, statusOnly = false) {
 		let blockBus = this.getBusFromId(block.height);
-		if (!blockBus) return false;
+		// If no bus exists for this block, create one on-the-fly
+		if (!blockBus) {
+			blockBus = this.addBus(true);
+			if (blockBus) {
+				blockBus.setData("id", block.height);
+				blockBus.tx = block.tx || [];
+				blockBus.feeArray = [];
+				blockBus.baseFee = block.baseFee || 0;
+				blockBus.realLoaded = block.gu || block.size || 0;
+			} else {
+				return false;
+			}
+		}
 		blockBus.loaded = typeof block.size === "undefined" || !block.size ? 0 : block.size;
 
 		if (statusOnly) {
@@ -1295,9 +1307,8 @@ export class Street extends Phaser.Scene {
 			);
 			let json = await response.json();
 
-			if (json) {
-				this.addPendingTxs(json, initial);
-			}
+			// Always call addPendingTxs to ensure checkBlockInterval starts
+			this.addPendingTxs(json || [], initial);
 		} catch (error) {
 			console.log(error);
 			if (initial) this.stopLoading();

@@ -370,11 +370,13 @@ export default class BERAStreet extends Street {
 
 		let foundLoaded = false;
 		let target = this.getGasTarget();
+		const minBusesToKeep = 8; // Keep minimum 8 buses waiting for BERA's fast block times
 		for (let i = activeBuses.length - 1; i >= 0; i--) {
 			this.calcBusFees(activeBuses, i);
 			activeBuses[i].feeText2 = "+" + ethUnits(Math.ceil(activeBuses[i].lowFee) * 1000000000);
 			let busId = activeBuses[i].getData("id");
-			if (foundLoaded || nonEmptyBuses.includes(busId) || activeBuses[i].tx.length > 0) {
+			// Keep bus if it has transactions OR we need to maintain minimum bus count
+			if (foundLoaded || nonEmptyBuses.includes(busId) || activeBuses[i].tx.length > 0 || activeBuses.length <= minBusesToKeep) {
 				foundLoaded = true;
 				let overTarget = activeBuses[i].realLoaded - target;
 				if (overTarget < 0) overTarget = 0;

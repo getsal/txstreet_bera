@@ -47,12 +47,24 @@ class blockFactory extends EventEmitter {
 			this.emit("connected");
 		});
 
-		this.socket.on("block", async (hash) => {
-			if (typeof hash === "string") {
-				this.getBlock(hash);
+		this.socket.on("block", async (data) => {
+			// Handle both string (hash or JSON) and object formats
+			let block = data;
+			if (typeof data === "string") {
+				// Try to parse as JSON first (might be full block object)
+				try {
+					block = JSON.parse(data);
+				} catch (e) {
+					// It's just a hash string, fetch the block
+					this.getBlock(data);
+					return;
+				}
 			}
-			else {
-				this.addBlock(hash);
+			// If it's just a hash string after parse attempt, fetch it
+			if (typeof block === "string") {
+				this.getBlock(block);
+			} else {
+				this.addBlock(block);
 			}
 		});
 	}
