@@ -48,10 +48,11 @@ export class StreetController extends Phaser.Scene {
 
 	preload() {
 		this.load.setPath(config.baseUrl + "static/img/");
-		this.load.multiatlas("sheet", "sheet.json?v=" + process.env.VUE_APP_VERSION);
+		this.load.atlas("sheet", "sheet.png?v=" + process.env.VUE_APP_VERSION, "sheet.json?v=" + process.env.VUE_APP_VERSION);
 		this.load.multiatlas("characters", "characters.json?v=" + process.env.VUE_APP_VERSION);
 		this.load.multiatlas("mall", "mall.json?v=" + process.env.VUE_APP_VERSION);
-		if (config.theme.key === "holiday") this.load.multiatlas("holiday", "sheet_holiday.json?v=" + process.env.VUE_APP_VERSION);
+		this.load.multiatlas("bera_sprites", "bera_sprites/bera_atlas.json?v=" + process.env.VUE_APP_VERSION);
+		if (config.theme.key === "holiday") this.load.atlas("holiday", "sheet_holiday.png?v=" + process.env.VUE_APP_VERSION, "sheet_holiday.json?v=" + process.env.VUE_APP_VERSION);
 
 		this.load.bitmapFont("roboto", "roboto.png?v=" + process.env.VUE_APP_VERSION, "roboto.xml?v=" + process.env.VUE_APP_VERSION);
 		this.load.bitmapFont("highway", "highway.png?v=" + process.env.VUE_APP_VERSION, "highway.xml?v=" + process.env.VUE_APP_VERSION);
@@ -222,15 +223,18 @@ export class StreetController extends Phaser.Scene {
 		var street = new coin(side);
 		this[side + "Street"] = coin;
 		this.scene.add(side, street, true);
-		street.vue.$on("changedSetting", key => {
-			if (key === "openRoofs") {
-				for (let i = 0; i < this.game.scene.scenes.length; i++) {
-					let scene = this.game.scene.scenes[i];
-					if (typeof scene.busInside === "function" && scene !== this) {
-						scene.busInside();
+		street.events.once("ready", () => {
+			if (!street.vue) return;
+			street.vue.$on("changedSetting", key => {
+				if (key === "openRoofs") {
+					for (let i = 0; i < this.game.scene.scenes.length; i++) {
+						let scene = this.game.scene.scenes[i];
+						if (typeof scene.busInside === "function" && scene !== this) {
+							scene.busInside();
+						}
 					}
 				}
-			}
+			});
 		});
 	}
 

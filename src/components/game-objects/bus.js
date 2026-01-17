@@ -56,8 +56,15 @@ const Bus = new Phaser.Class({
 		this.text3.originalTint = this.textColor.color;
 		this.text3.setOrigin(0.5);
 
-		this.logo = this.scene.add.image(0, -35, getSheetKey("coin_logo"), this.scene.ticker.toLowerCase() + ".png");
-		this.logo.setScale(0.6);
+		let frameName = this.scene.ticker.toLowerCase() + ".png";
+		if (this.scene.ticker === "BERA") frameName = "Berachain_White.png";
+		let sheetKey = getSheetKey(frameName);
+		if (sheetKey === frameName) {
+			this.logo = this.scene.add.image(0, -35, sheetKey);
+		} else {
+			this.logo = this.scene.add.image(0, -35, sheetKey, frameName);
+		}
+		this.logo.setScale(this.scene.ticker === "BERA" ? 0.3 : 0.6);
 		this.logo.setTint(this.logoColor.color);
 		this.logo.originalTint = this.logoColor.color;
 		this.logo.setOrigin(0.5, 0);

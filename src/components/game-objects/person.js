@@ -18,7 +18,7 @@ const Person = new Phaser.Class({
 });
 
 Person.prototype.customResetData = function (char = "mailman") {
-	if(userSettings.globalSettings.animations.value) this.animsEnabled = true;
+	if (userSettings.globalSettings.animations.value) this.animsEnabled = true;
 	this.resetMoveList();
 	this.setData("maxScale", 1);
 	this.setData("spriteNo", char);
@@ -41,9 +41,10 @@ Person.prototype.resetData = function (txData) {
 			this.scene.loadNFTSprite(this, txData.char.sheet, txData.char.texture, this.scene.charConfig[txData.char.sheet].pixelArt);
 		}
 		else {
+			const frame = (txData.char ? txData.char + "-0" : "person-" + this.getData("spriteNo") * 9) + ".png";
 			this.setTexture(
-				getSheetKey("person-"),
-				(txData.char ? txData.char + "-0" : "person-" + this.getData("spriteNo") * 9) + ".png"
+				getSheetKey(frame),
+				frame
 			);
 		}
 	}
@@ -476,7 +477,7 @@ Person.prototype.toBoardMove = function (restart, teleport) {
 				});
 			}
 		} else {
-			this.addMove(spot[0], spot[1], { status: "to_board" });
+			this.addMove(spot[0] + (Math.random() * 30 - 15), spot[1], { status: "to_board" });
 		}
 	} else {
 		this.addMove(this.scene.boarding.x, this.scene.getBoardingY(this), { status: "to_board" });

@@ -83,7 +83,9 @@ export default class BERAStreet extends Street {
 		this.bottomStats = this.config.stats;
 	}
 
-	preload() { }
+	preload() {
+		this.load.image("bera.png", "/static/img/singles/bera.png");
+	}
 
 	// Disable Ledger advertisement
 	createLedgerNanoX() { }
@@ -410,7 +412,7 @@ export default class BERAStreet extends Street {
 
 	calcBusHeightFromBlock(block) {
 		let target = this.getGasTarget();
-		let overTarget = block.gu - target;
+		let overTarget = (block.gu || 0) - target;
 		if (overTarget < 0) overTarget = 0;
 		return overTarget > 0 ? Math.round(overTarget / 500000) : 0;
 	}

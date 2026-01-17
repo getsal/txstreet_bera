@@ -4,16 +4,18 @@ import { add } from "date-fns";
 import io from "socket.io-client";
 
 export const getSheetKey = frame => {
+	if (frame.startsWith("bera_")) return "bera_sprites";
+	if (frame === "bera.png") return "bera.png";
 	const theme = config.theme;
-	if(theme.frames.includes(frame)) return theme.key;
-	if(frame.includes("person-")) return "characters";
+	if (theme.frames.includes(frame)) return theme.key;
+	if (frame.includes("person-")) return "characters";
 	for (let i = 0; i < moonheadNames.length; i++) {
 		const name = moonheadNames[i];
-		if(frame.includes(name)) return "characters";
+		if (frame.includes(name)) return "characters";
 	}
 	for (const key in additionalSheets) {
 		const sheetConfig = additionalSheets[key];
-		if(sheetConfig.frames.includes(frame)) return sheetConfig.key;
+		if (sheetConfig.frames.includes(frame)) return sheetConfig.key;
 	}
 	return "sheet";
 }
@@ -91,12 +93,12 @@ function formatCloudFlareBlock(data) {
 }
 
 export const loadBlock = async (ticker, hash, retries = 0) => {
-	if(enabledConfig[ticker].socketBlocks){
+	if (enabledConfig[ticker].socketBlocks) {
 		let socket = getSocket(ticker);
 		const promise = new Promise((resolve) => {
 			socket.socket.once("fetch-block", async (hash, error, block) => {
 				console.log(hash, error, block);
-				if(error) resolve(false);
+				if (error) resolve(false);
 				resolve(block);
 			});
 			setTimeout(() => {

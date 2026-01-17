@@ -487,6 +487,43 @@ export const LTC = {
 	}),
 };
 
+export const themes = {
+	default: {
+		key: "default",
+		title: () => {
+			return i18n.t("general.default");
+		},
+		frames: [""],
+		backgroundColor: "#558259",
+		curbWidth: 8,
+		houseCurbWidth: 9,
+		signPoleHeight: 151,
+		signPolePadding: 0,
+		stoplightPadding: 0,
+		signBgColor: 0x212121,
+		signFontColor: "#d8800e",
+	},
+	holiday: {
+		key: "holiday",
+		title: () => {
+			return i18n.t("general.holiday");
+		},
+		frames: ["snow.png", "bushes.png", "curb.png", "door.png", "house_overlay.png", "lane.png", "road.png", "sign_pole.png", "stoplight.png", "stoplight_sign.png"],
+		backgroundColor: "#eff0ef",
+		houseOverlay: true,
+		scrollLane: true,
+		scrollHouseCurb: true,
+		curbWidth: 18,
+		houseCurbWidth: 19,
+		signPoleHeight: 157,
+		signPolePadding: 6,
+		stoplightPadding: 5,
+		signBgColor: 0x1d6e04,
+		signFontColor: "#f9f9f9",
+		effects: ["snowfall"],
+	},
+};
+
 export const ETH = {
 	ticker: "ETH",
 	coinName: "Ethereum",
@@ -987,6 +1024,8 @@ export const BERA = {
 	coinSlug: "Berachain",
 	initialHouseY: 340,
 	color: "FF8C00",        // Orange/Honey theme
+	theme: themes.default,
+	ignoreMissingRecent: true,
 	busColor: "E5733D",
 	busCapacity: 30000000,
 	feeVar: "gp",
@@ -1715,47 +1754,12 @@ export const additionalSheets = {
 	mall: {
 		key: "mall",
 		frames: [
-			"mall.png","eth_post.png", "walkway.png", "eth_post_desk.png", "rollup_sign.png", "rollup_sign_right.png", "envelope.png"
+			"mall.png", "eth_post.png", "walkway.png", "eth_post_desk.png", "rollup_sign.png", "rollup_sign_right.png", "envelope.png"
 		]
 	}
 }
 
-export const themes = {
-	default: {
-		key: "default",
-		title: () => {
-			return i18n.t("general.default");
-		},
-		frames: [""],
-		backgroundColor: "#558259",
-		curbWidth: 8,
-		houseCurbWidth: 9,
-		signPoleHeight: 151,
-		signPolePadding: 0,
-		stoplightPadding: 0,
-		signBgColor: 0x212121,
-		signFontColor: "#d8800e",
-	},
-	holiday: {
-		key: "holiday",
-		title: () => {
-			return i18n.t("general.holiday");
-		},
-		frames: ["snow.png", "bushes.png", "curb.png", "door.png", "house_overlay.png", "lane.png", "road.png", "sign_pole.png", "stoplight.png", "stoplight_sign.png"],
-		backgroundColor: "#eff0ef",
-		houseOverlay: true,
-		scrollLane: true,
-		scrollHouseCurb: true,
-		curbWidth: 18,
-		houseCurbWidth: 19,
-		signPoleHeight: 157,
-		signPolePadding: 6,
-		stoplightPadding: 5,
-		signBgColor: 0x1d6e04,
-		signFontColor: "#f9f9f9",
-		effects: ["snowfall"],
-	},
-};
+
 
 export const userSettings = {
 	globalSettings: {
@@ -1927,13 +1931,19 @@ export const config = {
 
 export const zoomerNames = ["bat", "bear", "bull", "frog", "lion", "lizard", "monkey", "penguin", "unicorn", "wolf"];
 export const genesisNames = ["helper", "santa", "snowman", "isabella", "alien", "mib", "moonboy", "mailman", "ltc"];
-export const moonheadNames = zoomerNames.concat(genesisNames);
+export const beraNames = ['bera_1', 'bera_10', 'bera_100', 'bera_1000', 'bera_101', 'bera_102', 'bera_103', 'bera_104', 'bera_105', 'bera_106', 'bera_107', 'bera_108', 'bera_109', 'bera_11', 'bera_110', 'bera_111', 'bera_112', 'bera_113', 'bera_114', 'bera_115', 'bera_116', 'bera_117', 'bera_118', 'bera_119', 'bera_12', 'bera_120', 'bera_121', 'bera_122', 'bera_123', 'bera_124', 'bera_125', 'bera_126', 'bera_127', 'bera_128', 'bera_129', 'bera_13', 'bera_130', 'bera_131', 'bera_132', 'bera_133', 'bera_134', 'bera_135', 'bera_136', 'bera_137', 'bera_138', 'bera_139', 'bera_14', 'bera_140', 'bera_141', 'bera_142', 'bera_143', 'bera_144', 'bera_145', 'bera_146'];
+export const moonheadNames = zoomerNames.concat(genesisNames).concat(beraNames);
 
 export const charConfig = {
 	default: {
 		scaleAdjust: 1,
 		defaultFlip: false,
 		contract: "0x76ad70096b373dce5c2bf44eb9a9f8ecbb1c0b93"
+	},
+	bera: {
+		scaleAdjust: 1.5,
+		defaultFlip: true,
+		contract: ""
 	},
 	"moonheads-zoomers": {
 		scaleAdjust: 1,

@@ -43,7 +43,7 @@ export default {
 			darkMode: true,
 			autoLoad: false,
 			autoLoading: false,
-			selectedCoins: ["ETH", "BTC"],
+			selectedCoins: ["BERA", null],
 			now: 0,
 			nowMinute: 0,
 			moonHeadAds: [],
@@ -120,23 +120,8 @@ export default {
 			let coinConfig = this.enabledConfig[ticker];
 			return coinConfig?.color || "000000";
 		},
-		async getAd(retry = 0) {
-			if (retry > 3) return;
-			let url = process.env.VUE_APP_MOONHEADS_SERVER + "/api/currentAd";
-			try {
-				let response = await fetch(url);
-				let json = await response.json();
-				if (Array.isArray(json)) {
-					Vue.set(this, "moonHeadAds", json);
-				} else {
-					setTimeout(() => {
-						retry++;
-						this.getAd(retry);
-					}, 5000);
-				}
-			} catch (e) {
-				console.log("Failed to fetch ad", e);
-			}
+		async getAd() {
+            return;
 		},
 		nowInterval() {
 			setInterval(() => {

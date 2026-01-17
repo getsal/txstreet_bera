@@ -1,0 +1,160 @@
+{
+  "meta": {
+    "version": "0.6.7"
+  },
+  "savePath": "",
+  "images": [
+    {
+      "name": "Berachain_Black.png",
+      "path": "/Users/suzuki/Dev/Bera_tx_street/txstreet_bera/public/static/img/Berachain_Black.png",
+      "folder": ""
+    },
+    {
+      "name": "Berachain_White.png",
+      "path": "/Users/suzuki/Dev/Bera_tx_street/txstreet_bera/public/static/img/Berachain_White.png",
+      "folder": ""
+    },
+    {
+      "name": "bus_articulated.png",
+      "path": "/Users/suzuki/Dev/Bera_tx_street/txstreet_bera/public/static/img/singles/bus_articulated.png",
+      "folder": ""
+    },
+    {
+      "name": "bus_bottom.png",
+      "path": "/Users/suzuki/Dev/Bera_tx_street/txstreet_bera/public/static/img/singles/bus_bottom.png",
+      "folder": ""
+    },
+    {
+      "name": "bus_erase.png",
+      "path": "/Users/suzuki/Dev/Bera_tx_street/txstreet_bera/public/static/img/singles/bus_erase.png",
+      "folder": ""
+    },
+    {
+      "name": "bus_top.png",
+      "path": "/Users/suzuki/Dev/Bera_tx_street/txstreet_bera/public/static/img/singles/bus_top.png",
+      "folder": ""
+    },
+    {
+      "name": "caution_tape.png",
+      "path": "/Users/suzuki/Dev/Bera_tx_street/txstreet_bera/public/static/img/singles/caution_tape.png",
+      "folder": ""
+    },
+    {
+      "name": "curb.png",
+      "path": "/Users/suzuki/Dev/Bera_tx_street/txstreet_bera/public/static/img/singles/curb.png",
+      "folder": ""
+    },
+    {
+      "name": "door.png",
+      "path": "/Users/suzuki/Dev/Bera_tx_street/txstreet_bera/public/static/img/singles/door.png",
+      "folder": ""
+    },
+    {
+      "name": "flare.png",
+      "path": "/Users/suzuki/Dev/Bera_tx_street/txstreet_bera/public/static/img/singles/flare.png",
+      "folder": ""
+    },
+    {
+      "name": "halo.png",
+      "path": "/Users/suzuki/Dev/Bera_tx_street/txstreet_bera/public/static/img/singles/halo.png",
+      "folder": ""
+    },
+    {
+      "name": "house.png",
+      "path": "/Users/suzuki/Dev/Bera_tx_street/txstreet_bera/public/static/img/singles/house.png",
+      "folder": ""
+    },
+    {
+      "name": "lane.png",
+      "path": "/Users/suzuki/Dev/Bera_tx_street/txstreet_bera/public/static/img/singles/lane.png",
+      "folder": ""
+    },
+    {
+      "name": "ledger1.png",
+      "path": "/Users/suzuki/Dev/Bera_tx_street/txstreet_bera/public/static/img/singles/ledger1.png",
+      "folder": ""
+    },
+    {
+      "name": "ledger2.png",
+      "path": "/Users/suzuki/Dev/Bera_tx_street/txstreet_bera/public/static/img/singles/ledger2.png",
+      "folder": ""
+    },
+    {
+      "name": "lights.png",
+      "path": "/Users/suzuki/Dev/Bera_tx_street/txstreet_bera/public/static/img/singles/lights.png",
+      "folder": ""
+    },
+    {
+      "name": "mweb.png",
+      "path": "/Users/suzuki/Dev/Bera_tx_street/txstreet_bera/public/static/img/singles/mweb.png",
+      "folder": ""
+    },
+    {
+      "name": "opentrailer.png",
+      "path": "/Users/suzuki/Dev/Bera_tx_street/txstreet_bera/public/static/img/singles/opentrailer.png",
+      "folder": ""
+    },
+    {
+      "name": "road.png",
+      "path": "/Users/suzuki/Dev/Bera_tx_street/txstreet_bera/public/static/img/singles/road.png",
+      "folder": ""
+    },
+    {
+      "name": "segwit_outline.png",
+      "path": "/Users/suzuki/Dev/Bera_tx_street/txstreet_bera/public/static/img/singles/segwit_outline.png",
+      "folder": ""
+    },
+    {
+      "name": "segwitbus.png",
+      "path": "/Users/suzuki/Dev/Bera_tx_street/txstreet_bera/public/static/img/singles/segwitbus.png",
+      "folder": ""
+    },
+    {
+      "name": "sign_pole.png",
+      "path": "/Users/suzuki/Dev/Bera_tx_street/txstreet_bera/public/static/img/singles/sign_pole.png",
+      "folder": ""
+    },
+    {
+      "name": "stoplight.png",
+      "path": "/Users/suzuki/Dev/Bera_tx_street/txstreet_bera/public/static/img/singles/stoplight.png",
+      "folder": ""
+    },
+    {
+      "name": "stoplight_sign.png",
+      "path": "/Users/suzuki/Dev/Bera_tx_street/txstreet_bera/public/static/img/singles/stoplight_sign.png",
+      "folder": ""
+    }
+  ],
+  "folders": [
+    "/Users/suzuki/Dev/Bera_tx_street/txstreet_bera/public/static/img/singles/coin_logos",
+    "/Users/suzuki/Dev/Bera_tx_street/txstreet_bera/public/static/img/singles/house_logos",
+    "/Users/suzuki/Dev/Bera_tx_street/txstreet_bera/public/static/img/singles/tween_icons"
+  ],
+  "packOptions": {
+    "textureName": "sheet",
+    "textureFormat": "png",
+    "removeFileExtension": false,
+    "prependFolderName": true,
+    "base64Export": false,
+    "tinify": false,
+    "tinifyKey": "",
+    "scale": 1,
+    "filter": "none",
+    "exporter": "JSON (array)",
+    "fileName": "pack-result",
+    "savePath": "",
+    "width": 2048,
+    "height": 1024,
+    "fixedSize": false,
+    "powerOfTwo": false,
+    "padding": 0,
+    "extrude": 0,
+    "allowRotation": false,
+    "allowTrim": false,
+    "trimMode": "trim",
+    "alphaThreshold": "0",
+    "detectIdentical": true,
+    "packer": "MaxRectsBin",
+    "packerMethod": "BestShortSideFit"
+  }
+}

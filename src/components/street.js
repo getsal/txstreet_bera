@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { config, userSettings, charConfig, enabledConfig } from "./config.js";
+import { config, userSettings, charConfig, enabledConfig, beraNames } from "./config.js";
 import blockFactories from "./blocks.js";
 import {
 	mirrorX,
@@ -1011,15 +1011,17 @@ export class Street extends Phaser.Scene {
 			this.blockFactory.connect();
 
 			if (!this.socketConnectCount) {
-				this.time.addEvent({
-					delay: 5000,
-					callback: () => {
-						if (this.statUpdateCount <= 0) {
-							this.vue.isConnected = false;
-							this.loaded = true;
-						}
-					},
-				});
+				if (!this.socketConnectCount) {
+					// this.time.addEvent({
+					// 	delay: 5000,
+					// 	callback: () => {
+					// 		if (this.statUpdateCount <= 0) {
+					// 			this.vue.isConnected = false;
+					// 			this.loaded = true;
+					// 		}
+					// 	},
+					// });
+				}
 			}
 			this.socketConnectCount++;
 		}, 50);
@@ -1490,6 +1492,10 @@ export class Street extends Phaser.Scene {
 		//TODO, when no fee, set it to average
 		if (this.lineManager[data.tx]) return false;
 
+		if (this.ticker === "BERA" && !data.char) {
+			data.char = beraNames[Math.floor(Math.random() * beraNames.length)];
+		}
+
 		this.customCallback("newTx", "before", data);
 		// console.log(data.ty);
 		this.config.getAndApplyFee(data);
@@ -1524,15 +1530,15 @@ export class Street extends Phaser.Scene {
 				};
 				this.loadNFTSprite(false, data.char.sheet, data.char.texture, this.charConfig[potentialChar].pixelArt);
 			}
-			else if (!this?.textures?.list?.characters?.frames?.[potentialChar + "-0.png"]) {
+			else if (!this?.textures?.list?.characters?.frames?.[potentialChar + "-0.png"] && !this?.textures?.list?.bera_sprites?.frames?.[potentialChar + "-0.png"]) {
 				//check if texture exists on default sheet
 				console.log("deleted " + data.char, potentialChar + "-0.png");
 				delete data.char;
 			}
 		}
-		data.charType = data?.char?.sheet || "default";
+		data.charType = data?.char?.sheet || (data.char && data.char.startsWith("bera_") ? "bera" : "default");
 
-		data.spriteNo = data.char && userSettings.globalSettings.nfts.value ? data.char : window.txStreetPhaser.streetController.generateSpriteNo();
+		data.spriteNo = (data.char && (userSettings.globalSettings.nfts.value || data.char.startsWith("bera_"))) ? data.char : window.txStreetPhaser.streetController.generateSpriteNo();
 		data.random = Math.random();
 		data.maxScale = this.setMaxScalePerson(false, modSize);
 		// //first create entry in line manager
@@ -2770,7 +2776,10 @@ export class Street extends Phaser.Scene {
 		door.setScale(config.resolution);
 		this.doors.add(door);
 
-		let logo = this.add.image(0, 0, getSheetKey("coin_logo"), houseObj.name + ".png", 40, 40);
+		let logoName = houseObj.name + ".png";
+		if (this.ticker === "BERA" && houseObj.name === "Berachain") logoName = "Berachain_White.png";
+		let logo = this.add.image(0, 0, getSheetKey("coin_logo"), logoName, 40, 40);
+		if (this.ticker === "BERA" && houseObj.name === "Berachain") logo.setScale(config.resolution * 0.5);
 		if (typeof this.housePlans[houseObj.name].colors[1] !== "undefined" && this.housePlans[houseObj.name].colors[1]) {
 			if (this.housePlans[houseObj.name].colors[1] === "lighten") {
 				logo.setTint(doorColor);
@@ -2969,6 +2978,18 @@ export class Street extends Phaser.Scene {
 				if (person.animsEnabled) {
 					person.anims.timeScale = move.timeScale;
 					person.anims.play("walk_" + move.direction + "_" + person.data.values.spriteNo, true);
+				} else if (person.data.values.spriteNo.startsWith && person.data.values.spriteNo.startsWith("bera_")) {
+					// Wobble effect for Bera sprites
+					if (person.wobbleTween) person.wobbleTween.stop();
+					person.setAngle(0);
+					person.wobbleTween = this.scene.tweens.add({
+						targets: person,
+						angle: { from: -5, to: 5 },
+						yoyo: true,
+						repeat: -1,
+						duration: 200 * (1 / move.timeScale),
+						ease: 'Sine.easeInOut'
+					});
 				}
 			}
 			if (person.animsEnabled && person.anims.paused) person.anims.resume();
