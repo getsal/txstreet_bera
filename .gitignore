@@ -40,3 +40,4 @@ pnpm-debug.log*
 *.sw?
 **/cryptopunks
 **/moonheads
+public/static/img/original_sheet.zip
